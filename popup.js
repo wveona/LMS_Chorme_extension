@@ -8,11 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // 버튼 클릭 이벤트 리스너 추가
     toggleButton.addEventListener('click', () => {
-      chrome.storage.local.get('isEnabled', (data) => {
-        const newState = !data.isEnabled;
-        chrome.storage.local.set({ isEnabled: newState }, () => {
-          updateButton(newState);
-        });
+      chrome.runtime.sendMessage({ action: 'toggle' }, (response) => {
+        updateButton(response.isEnabled);
       });
     });
   
