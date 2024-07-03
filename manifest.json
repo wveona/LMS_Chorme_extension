@@ -8,5 +8,6 @@
         "default_icon": {
             "1": "src/icon1.png"
         }
-    }
+    },
+    "permission":["scripting"]
 }
