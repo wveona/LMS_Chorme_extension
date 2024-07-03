@@ -1,2 +1,2 @@
-# LMS_Chorme_extension
+# LMS_Chrome_extension
 Branch Test
