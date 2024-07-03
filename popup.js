@@ -1,21 +1,28 @@
-let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-
- // Execute script in the current tab
-function onAndoff(st){
-    if(st==0){
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            func: () => {
-                alert('LMS 확장 꺼짐')
-            }
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggleButton');
+  
+    // 초기 상태 로드
+    chrome.storage.local.get('isEnabled', (data) => {
+      updateButton(data.isEnabled);
+    });
+  
+    // 버튼 클릭 이벤트 리스너 추가
+    toggleButton.addEventListener('click', () => {
+      chrome.storage.local.get('isEnabled', (data) => {
+        const newState = !data.isEnabled;
+        chrome.storage.local.set({ isEnabled: newState }, () => {
+          updateButton(newState);
         });
+      });
+    });
+  
+    function updateButton(isEnabled) {
+      if (isEnabled) {
+        toggleButton.textContent = 'Disable';
+        toggleButton.style.backgroundColor = 'red';
+      } else {
+        toggleButton.textContent = 'Enable';
+        toggleButton.style.backgroundColor = 'green';
+      }
     }
-    else{
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            func: () => {
-                alert('LMS 확장 꺼짐')
-            }
-        });
-    }
-}
+  });
