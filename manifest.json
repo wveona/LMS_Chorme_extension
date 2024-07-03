@@ -9,5 +9,8 @@
             "1": "src/icon1.png"
         }
     },
-    "permission":["scripting"]
+    "permissions":["scripting","storage"],
+    "background": {
+        "service_worker": "background.js"
+    }
 }
