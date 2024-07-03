@@ -1,14 +1,12 @@
 {
     "manifest_version" : 3,
-    "name" : "LMS",
+    "name" : "LMS Chrome Extension",
     "version" : "0.1",
-    "content_scripts" : [
-        {
-            "matches" : ["<all_urls>"],
-            "js" : ["index.js"]
+    "action": {
+        "default_title": "LMS",
+        "default_popup": "popup.html",
+        "default_icon": {
+            "1": "src/icon1.png"
         }
-    ],
-    "icons":{
-        "1": "src/icon.png"
     }
 }
