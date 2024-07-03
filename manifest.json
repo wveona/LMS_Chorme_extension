@@ -7,5 +7,8 @@
             "matches" : ["<all_urls>"],
             "js" : ["index.js"]
         }
-    ]
+    ],
+    "icons":{
+        "1": "src/icon.png"
+    }
 }
