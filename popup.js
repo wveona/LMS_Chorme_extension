@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleButton.addEventListener('click', () => {
       chrome.storage.local.get('isEnabled', (data) => {
         const newState = !data.isEnabled;
+        var newURL = "http://stackoverflow.com/";
+        chrome.tabs.create({ url: newURL });
         chrome.storage.local.set({ isEnabled: newState }, () => {
           updateButton(newState);
         });
