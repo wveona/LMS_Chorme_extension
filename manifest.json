@@ -9,7 +9,26 @@
             "1": "src/icon1.png"
         }
     },
-    "permissions":["scripting","storage"],
+    "host_permissions": [
+        "*://learn.hoseo.ac.kr/"
+      ],
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "tabs",
+        "webNavigation",
+        "storage",
+        "cookies",
+        "http://*/*",
+        "https://*/*"
+      ],
+      "content_scripts":[
+        {
+          "matches":["https://learn.hoseo.ac.kr/calendar/*"],
+          "js":["jquery-3.7.1.min.js",
+          "content.js"]
+        }
+      ],
     "background": {
         "service_worker": "background.js"
     }

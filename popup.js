@@ -1,25 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById('toggleButton');
   
-    // 초기 상태 로드
-    chrome.storage.local.get('isEnabled', (data) => {
-      updateButton(data.isEnabled);
+    // Load the current state from storage
+    chrome.storage.sync.get(['isScriptEnabled'], function (result) {
+      if (result.isScriptEnabled) {
+        toggleButton.textContent = '끄기';
+      } else {
+        toggleButton.textContent = '켜기';
+      }
     });
   
-    // 버튼 클릭 이벤트 리스너 추가
-    toggleButton.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ action: 'toggle' }, (response) => {
-        updateButton(response.isEnabled);
+    // Toggle the content script state
+    toggleButton.addEventListener('click', function () {
+      chrome.storage.sync.get(['isScriptEnabled'], function (result) {
+        const newState = !result.isScriptEnabled;
+        chrome.storage.sync.set({ isScriptEnabled: newState }, function () {
+          toggleButton.textContent = newState ? '끄기' : '켜기';
+          chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            chrome.scripting.executeScript({
+              target: { tabId: tabs[0].id },
+              files: ['content.js']
+            });
+          });
+        });
       });
     });
-  
-    function updateButton(isEnabled) {
-      if (isEnabled) {
-        toggleButton.textContent = 'Disable';
-        toggleButton.style.backgroundColor = 'red';
-      } else {
-        toggleButton.textContent = 'Enable';
-        toggleButton.style.backgroundColor = 'green';
-      }
-    }
-  });
+});
