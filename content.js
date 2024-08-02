@@ -64,10 +64,10 @@ chrome.storage.sync.get(['isScriptEnabled'], function (result) {
             const assignmentMap=new Map();
             const urlMap=new Map();
 
-            for(let i=rows.length-1;i>0;i--){
+            for(let i=1;i<rows.length;i++){
                 let ul=rows[i].getElementsByTagName("ul"); // ul HTMLCollection for rows
                 let daysOfThisWeek=rows[i].getElementsByClassName("day text-sm-center text-md-left clickable");
-                for(let j=ul.length-1;j>-1;j--){
+                for(let j=0;j<ul.length;j++){
                     let a=ul[j].getElementsByTagName("a"); // a HTMLCollection for uls
                     let dateInfo=daysOfThisWeek[j].getElementsByTagName("a")[0];
                     let day=parseInt(dateInfo.getAttribute("data-day"));
