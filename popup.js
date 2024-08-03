@@ -41,7 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
           messages: [{ role:'user', content:userInput }]
         }),
         success: function(response) {
-            $(".GPTanswer").text(response.choices[0].message.content);
+          const reply=response.choices[0].message.content;
+          $("#GPTanswer").text(reply);
+          console.log(reply);
         },
         error: function(xhr,status,error) {
             console.error('Error:', error);
